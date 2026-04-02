@@ -595,7 +595,7 @@ function buildRow(day, data) {
         ' oninput="onTInput(this)" onblur="onTBlur(this,\''+dk+'\',\'out\','+dayM+')" onkeydown="onTKey(event)">' +
     '</div>' +
     '<div class="twrap'+(noTime?' disabled':'')+'" id="twbrk'+dk+'" style="width:fit-content">' +
-      '<input class="tinput" id="tibrk'+dk+'" value="'+(rec.brk||'')+'" placeholder="--:--" maxlength="5" style="width:48px;color:var(--amber)"'+dis+
+      '<input class="tinput" id="tibrk'+dk+'" value="'+(rec.brk||'')+'" placeholder="휴게--:--" maxlength="5" style="width:60px;color:var(--amber)"'+dis+
         ' oninput="onTInput(this)" onblur="onTBlur(this,\''+dk+'\',\'brk\','+dayM+')" onkeydown="onTKey(event)">' +
     '</div>' +
     '<select class="dtype" id="tp'+dk+'" onchange="onType(\''+dk+'\',this.value,'+wn+','+dayM+')">' +
