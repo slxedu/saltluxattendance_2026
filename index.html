@@ -359,7 +359,21 @@ select.dtype option { background:var(--panel2); color:var(--text); }
 }
 .toast.show { opacity:1; transform:translateY(0); }
 
-.home-hero,
+.home-hero {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+  padding:28px 30px;
+  margin-bottom:20px;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at top right, rgba(61,134,255,.16), transparent 26%),
+    linear-gradient(135deg, #ffffff 0%, #f4f8ff 58%, #eef4ff 100%);
+  border:1px solid rgba(216,228,251,.95);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+}
 .month-hero {
   display:grid;
   grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
@@ -926,9 +940,6 @@ function renderHomeContent(totals){
           '<div class="hero-chip"><span class="hero-chip-label">Achievement</span><span class="hero-chip-value" style="color:'+dc+'">'+pct.toFixed(1)+'%</span></div>' +
           '<div class="hero-chip"><span class="hero-chip-label">Gap</span><span class="hero-chip-value" style="color:'+dc+'">'+diffText+'</span></div>' +
         '</div>' +
-      '</div>' +
-      '<div class="hero-visual">' +
-        '<div class="hero-grid"></div>' +
       '</div>' +
     '</div>';
   html += '<div class="section-title">월별 현황</div>';
