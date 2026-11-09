@@ -251,6 +251,20 @@ body{
   border-radius:24px; padding:24px 26px; margin-bottom:18px;
   box-shadow:var(--shadow);
 }
+.calendar-overview { margin:18px 0; background:linear-gradient(180deg,#fff,#f8fbff); border:1px solid var(--border); border-radius:22px; overflow:hidden; box-shadow:var(--shadow-soft); }
+.calendar-overview-head { display:flex; justify-content:space-between; align-items:flex-end; padding:20px 22px 16px; border-bottom:1px solid var(--border); }
+.calendar-overview-title { font-family:var(--display); font-size:17px; font-weight:800; }
+.calendar-overview-sub { font-family:var(--mono); font-size:10px; color:var(--text3); margin-top:4px; }
+.calendar-legend { font-size:11px; color:var(--text2); }
+.calendar-weekdays,.calendar-days { display:grid; grid-template-columns:repeat(7,1fr); }
+.calendar-weekdays { background:#f4f8ff; border-bottom:1px solid var(--border); }
+.calendar-weekday { padding:9px; text-align:center; font-family:var(--mono); font-size:10px; color:var(--text3); }
+.calendar-weekday:first-child { color:var(--red); }.calendar-weekday:last-child { color:var(--cyan); }
+.calendar-day { min-height:104px; padding:10px; border-right:1px solid rgba(216,228,251,.72); border-bottom:1px solid rgba(216,228,251,.72); }
+.calendar-day:nth-child(7n) { border-right:none; }.calendar-day.empty { background:rgba(244,248,255,.45); }
+.calendar-date { font-family:var(--mono); font-size:11px; color:var(--text2); }.calendar-day.sun .calendar-date { color:var(--red); }.calendar-day.sat .calendar-date { color:var(--cyan); }
+.calendar-hours { margin-top:13px; display:inline-flex; padding:5px 7px; border-radius:7px; background:var(--cyan-dim); color:var(--cyan); font-family:var(--mono); font-size:11px; font-weight:700; }
+.calendar-status { margin-top:6px; font-size:10px; color:var(--text3); }.calendar-note { margin-top:7px; font-size:11px; color:var(--text2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .week-bars { display:flex; gap:12px; align-items:flex-end; height:140px; padding-top:8px; }
 .wbar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
 .wbar-val { font-family:var(--mono); font-size:9px; font-weight:500; white-space:nowrap; min-height:13px; }
@@ -1115,9 +1129,11 @@ body { background:#f3f7fa; font-family:var(--sans); letter-spacing:0; }
 .topbar .hamburger span { background:#fff; }
 .content { max-width:1500px; padding:28px 34px 56px; }
 .home-hero,.month-hero { border-radius:8px; box-shadow:0 6px 20px rgba(36,76,106,.10); }
-.month-card,.dash-card,.chart-card,.wblock { border-radius:8px; box-shadow:0 3px 12px rgba(35,78,109,.08); }
+.month-card,.dash-card,.chart-card,.wblock,.calendar-overview { border-radius:8px; box-shadow:0 3px 12px rgba(35,78,109,.08); }
 .month-card:hover { transform:translateY(-2px); box-shadow:0 8px 18px rgba(35,78,109,.12); }
 .whead { background:#f7fbfe; }.whead:hover { background:#edf7ff; }
+.calendar-overview-head { background:#fff; }.calendar-weekdays { background:#eef7fd; }
+.calendar-hours { background:#e5f5ff; color:#0783dc; border-radius:4px; }
 .month-nav-btn,.back-btn { border-radius:6px; box-shadow:none; }
 .csv-btn { border-radius:6px; background:#0b65ba; box-shadow:none; }
 .csv-btn:hover { background:#07549d; }
@@ -1136,12 +1152,14 @@ body[data-theme="dark"] .nav-item { color:#8da7c6; } body[data-theme="dark"] .na
 body[data-theme="dark"] .logout-btn, body[data-theme="dark"] .theme-toggle { background:#0d1a2d; border-color:#294565; color:#b8c9df; }
 body[data-theme="dark"] .topbar { background:#0b1628; border-bottom:1px solid #203451; } body[data-theme="dark"] .topbar-title { color:#f3f8ff; }
 body[data-theme="dark"] .home-hero, body[data-theme="dark"] .month-hero { background:linear-gradient(135deg,#10233c 0%,#0d1a2d 68%); border-color:#294565; box-shadow:none; }
-body[data-theme="dark"] .month-card, body[data-theme="dark"] .dash-card, body[data-theme="dark"] .chart-card, body[data-theme="dark"] .wblock, body[data-theme="dark"] .kpi, body[data-theme="dark"] .ring-panel { background:#0d1728; border-color:#203451; box-shadow:none; }
-body[data-theme="dark"] .whead { background:#101d31; border-color:#203451; } body[data-theme="dark"] .whead:hover { background:#142641; }
-body[data-theme="dark"] .twrap, body[data-theme="dark"] select.dtype, body[data-theme="dark"] .month-nav-btn, body[data-theme="dark"] .back-btn { background:#101d31; border-color:#294565; color:#eaf3ff; box-shadow:none; }
+body[data-theme="dark"] .month-card, body[data-theme="dark"] .dash-card, body[data-theme="dark"] .chart-card, body[data-theme="dark"] .wblock, body[data-theme="dark"] .calendar-overview, body[data-theme="dark"] .kpi, body[data-theme="dark"] .ring-panel { background:#0d1728; border-color:#203451; box-shadow:none; }
+body[data-theme="dark"] .whead, body[data-theme="dark"] .calendar-overview-head, body[data-theme="dark"] .calendar-weekdays { background:#101d31; border-color:#203451; } body[data-theme="dark"] .whead:hover { background:#142641; }
+body[data-theme="dark"] .calendar-day, body[data-theme="dark"] .calendar-day.empty { background:#0d1728; border-color:#1d304b; } body[data-theme="dark"] .calendar-day.empty { background:#0b1628; }
+body[data-theme="dark"] .twrap, body[data-theme="dark"] select.dtype, body[data-theme="dark"] .note-input, body[data-theme="dark"] .month-nav-btn, body[data-theme="dark"] .back-btn { background:#101d31; border-color:#294565; color:#eaf3ff; box-shadow:none; }
 body[data-theme="dark"] select.dtype option { background:#101d31; color:#eaf3ff; }
 body[data-theme="dark"] .mc-bar, body[data-theme="dark"] .prog-bg, body[data-theme="dark"] .wbar-bg, body[data-theme="dark"] .wbar-outer { background:#1b2b44; }
 body[data-theme="dark"] .wfoot { background:#0d1a2d; border-color:#294565; }
+body[data-theme="dark"] .calendar-hours { background:#123458; color:#71c4ff; }
 
 .year-switcher { display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:12px 18px; border-bottom:1px solid var(--border); }
 .year-link { display:flex; align-items:center; justify-content:center; min-height:32px; border:1px solid var(--border); border-radius:6px; color:var(--text2); font-size:11px; font-weight:700; text-decoration:none; }
@@ -1162,6 +1180,7 @@ body[data-theme="dark"] .note-input::placeholder { color:#6684a7; }
   .topbar { height:auto; min-height:62px; padding:10px 16px; flex-wrap:wrap; align-items:center; gap:8px; }
   .topbar > div:first-child { width:100%; }.topbar-right { width:100%; justify-content:flex-end; gap:6px; }.topbar-right:empty { display:none; }
   .back-btn { padding:8px 10px; font-size:11px; }.month-nav-btn { width:32px; height:32px; }.month-label { min-width:36px; font-size:12px; }.csv-btn { padding:8px 11px; font-size:11px; }
+  .calendar-overview-head { flex-wrap:wrap; align-items:flex-start; gap:6px; }.calendar-legend { width:100%; font-size:10px; }
   .drow { grid-template-columns:40px 28px minmax(0,1fr) minmax(0,1fr); min-height:auto; padding:10px; gap:6px; overflow:visible; }
   .drow > :nth-child(1), .drow > :nth-child(2) { align-self:center; }
   .drow > :nth-child(5) { grid-column:1 / span 2; grid-row:2; }.drow > :nth-child(6) { grid-column:3; grid-row:2; }.drow > :nth-child(7) { grid-column:1 / span 3; grid-row:3; }.drow > :nth-child(8) { grid-column:4; grid-row:3; }
@@ -1593,9 +1612,8 @@ function renderHomeContent(totals){
   var html =
   '<div class="home-hero">' +
     '<div class="hero-copy">' +
-      '<div class="hero-eyebrow">SLX Team · 46H Attendance</div>' +
-      '<div class="hero-title">한 해 근무 흐름을<br>더 깔끔하게 확인하세요</div>' +
-      '<div class="hero-desc">회사 기준 정산 기간과 주차별 목표를 반영해 월별 진행 상태를 한눈에 정리했습니다.</div>' +
+      '<div class="hero-eyebrow">솔트룩스 2026 근태계획표</div>' +
+      '<div class="hero-title">2026 근무 현황</div>' +
     '</div>' +
     '<div class="hero-visual">' +
       '<div class="hero-grid"></div>' +
@@ -1650,8 +1668,26 @@ function render(){
   loadFromFirebase(M,function(data){
     var wmap=buildWmap();
     renderDashboard(wmap,data);
+    renderMonthCalendar(data);
     renderWeeks(wmap,data);
   });
+}
+
+function renderMonthCalendar(data){
+  var host=document.getElementById('calendarOverview');
+  if(!host) return;
+  var firstDay=new Date(Y,M-1,1).getDay();
+  var totalDays=new Date(Y,M,0).getDate();
+  var headers=['일','월','화','수','목','금','토'];
+  var html='<div class="calendar-overview-head"><div><div class="calendar-overview-title">'+Y+'년 '+M+'월 달력</div><div class="calendar-overview-sub">날짜별 근무시간과 비고를 한눈에 확인합니다</div></div><div class="calendar-legend">파란 시간표시: 입력된 근무시간</div></div>';
+  html+='<div class="calendar-weekdays">'+headers.map(function(day){return '<div class="calendar-weekday">'+day+'</div>';}).join('')+'</div><div class="calendar-days">';
+  for(var blank=0;blank<firstDay;blank++) html+='<div class="calendar-day empty"></div>';
+  for(var d=1;d<=totalDays;d++){
+    var dow=(firstDay+d-1)%7, key=M+'-'+d, rec=data[key]||{}, type=rec.type||'해당없음';
+    var hours=calcH(rec.in,rec.out,type,rec.brk), cls=dow===0?' sun':dow===6?' sat':'';
+    html+='<div class="calendar-day'+cls+'"><div class="calendar-date">'+d+'</div>'+(hours>0?'<div class="calendar-hours">'+fh(hours)+'</div>':'')+(type!=='해당없음'?'<div class="calendar-status">'+type+'</div>':'')+(rec.note?'<div class="calendar-note" title="'+escapeHtml(rec.note)+'">'+escapeHtml(rec.note)+'</div>':'')+'</div>';
+  }
+  host.innerHTML=html+'</div>';
 }
 
 function renderDashboard(wmap,data){
@@ -1677,28 +1713,28 @@ function renderDashboard(wmap,data){
   var ringBase=Math.min(100,pct);
   var ringOver=Math.min(18,mTarget>0?(over/mTarget)*100:0);
 
-  var maxH=0;
-  weekList.forEach(function(w){ maxH=Math.max(maxH,w.wt,w.wtgt); });
-  if(maxH<=0) maxH=46;
-
+  var weekKeys=Object.keys(wmap);
+  var selectedWeek=weekKeys.find(function(wn){ return wmap[wn].some(function(day){ return isToday(day.d,day.m); }); }) || weekKeys[0];
+  var workdays=(wmap[selectedWeek]||[]).filter(function(day){ return day.dow!=='토'&&day.dow!=='일'; });
+  var dailyTarget=TARGET_DAY;
   var barsHtml='';
-  weekList.forEach(function(w){
-    var fp=Math.min(100,(w.wt/maxH)*100);
-    var tp=Math.min(100,(w.wtgt/maxH)*100);
-    var bc=w.wt>w.wtgt+0.05?'var(--red)':w.wt<w.wtgt-0.05?(w.wt>0?'var(--cyan)':'var(--border)'):'var(--green)';
+  workdays.forEach(function(day){
+    var dayData=day.otherMonth?load(day.m):data;
+    var rec=dayData[day.m+'-'+day.d]||{};
+    var worked=calcH(rec.in,rec.out,rec.type||'해당없음',rec.brk);
+    var fp=Math.min(100,(worked/dailyTarget)*100);
+    var bc=worked>dailyTarget+0.05?'var(--red)':worked<dailyTarget-0.05?(worked>0?'var(--cyan)':'var(--border)'):'var(--green)';
     barsHtml+='<div class="wbar-col">'+
-      '<div class="wbar-val" style="color:'+(w.wt>0?bc:'var(--text3)')+'">'+(w.wt>0?fh(w.wt):'—')+'</div>'+
-      '<div class="wbar-outer"><div class="wbar-inner" style="height:'+fp.toFixed(1)+'%;background:'+bc+'"></div><div class="wbar-tgt" style="bottom:'+tp.toFixed(1)+'%"></div></div>'+
-      '<div class="wbar-wlabel">W'+w.wn+'</div>'+
-      '<div class="wbar-days">'+w.workDays+'일</div>'+
+      '<div class="wbar-val" style="color:'+(worked>0?bc:'var(--text3)')+'">'+(worked>0?fh(worked):'—')+'</div>'+
+      '<div class="wbar-outer"><div class="wbar-inner" style="height:'+fp.toFixed(1)+'%;background:'+bc+'"></div><div class="wbar-tgt" style="bottom:100%"></div></div>'+
+      '<div class="wbar-wlabel">'+day.dow+'</div>'+
     '</div>';
   });
 
   var html=
     '<div class="month-hero">'+
       '<div class="month-hero-copy">'+
-        '<div class="month-hero-eyebrow">'+MONTH_NAMES[M-1]+' Settlement Period</div>'+
-        '<div class="month-hero-title">'+MONTH_NAMES[M-1]+' 근무 현황과<br>주차별 밸런스</div>'+
+        '<div class="month-hero-title">'+MONTH_NAMES[M-1]+' 근무현황</div>'+
         '<div class="month-hero-desc">'+periodStr(M)+' 기간 기준으로 목표 시간, 주간 편차, 미달/초과 상태를 한 번에 확인할 수 있습니다.</div>'+
         '<div class="month-hero-metrics">'+
           '<div class="month-chip"><span class="month-chip-label">Total</span><span class="month-chip-value">'+fhBig(mTotal)+'</span></div>'+
@@ -1745,9 +1781,10 @@ function renderDashboard(wmap,data){
       '</div>'+
     '</div>'+
     '<div class="chart-card">'+
-      '<div class="dash-card-title">주차별 근무시간 · 점선 = 해당 주 목표</div>'+
+      '<div class="dash-card-title">이번 주 근무시간 · 점선 = 일 목표</div>'+
       '<div class="week-bars">'+(barsHtml||'<span style="font-size:12px;color:var(--text3);font-family:var(--mono)">입력된 데이터 없음</span>')+'</div>'+
-    '</div>';
+    '</div>'+
+    '<div id="calendarOverview"></div>';
 
   document.getElementById('dashboard').innerHTML=html;
 }
@@ -1936,7 +1973,11 @@ function updateWeekUI(wnum){
   if(d){ d.textContent=dl; d.className='wdiff '+dc; }
   if(f) f.innerHTML=footerHtml(wt,wtgt);
 }
-function updateDashboard(){ renderDashboard(buildWmap(),load(M)); }
+function updateDashboard(){
+  var data=load(M);
+  renderDashboard(buildWmap(),data);
+  renderMonthCalendar(data);
+}
 function exportCSV(){
   var data=load(M);
   var csv='\uFEFF날짜,요일,출근,퇴근,구분,비고,근무시간\n';
