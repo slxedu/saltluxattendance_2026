@@ -1308,9 +1308,9 @@ body[data-theme="dark"] .year-switcher { border-color:#203451; }.year-link { bac
 <div class="update-modal" id="updateModal" role="dialog" aria-modal="true" aria-labelledby="updateTitle">
   <div class="update-card">
     <button class="update-close" type="button" onclick="closeUpdatePopup()" aria-label="닫기">×</button>
-    <div class="update-badge">Update · 05.08 ~ 05.15</div>
-    <div class="update-title" id="updateTitle">라이트 / 다크모드가 추가됐어요</div>
-    <div class="update-desc">왼쪽 메뉴 상단에서 원하는 화면 모드를 바로 선택할 수 있습니다. 선택한 모드는 다음 접속 때도 유지됩니다.<br><br>게시기간: 2026.05.08 ~ 2026.05.15<br>닫기를 누르면 같은 브라우저에서는 다시 표시되지 않습니다.</div>
+    <div class="update-badge">UPDATE · TODAY</div>
+    <div class="update-title" id="updateTitle">근태계획표 업데이트 안내</div>
+    <div class="update-desc">일자별 비고란이 추가되었습니다.<br>왼쪽 메뉴에서 2027 탭을 선택할 수 있습니다.<br><br>이번 주도 화이팅하세요!</div>
     <div class="update-actions">
       <button class="update-ok" type="button" onclick="closeUpdatePopup()">확인</button>
     </div>
@@ -1336,8 +1336,8 @@ var Y = 2027;
 var M = Math.min(12, Math.max(1, new Date().getMonth() + 1));
 var currentView = 'home';
 var THEME_KEY = 'att27_theme';
-var UPDATE_POPUP_START = '2027-01-01';
-var UPDATE_POPUP_END = '2027-01-01';
+var UPDATE_POPUP_START = '2026-11-09';
+var UPDATE_POPUP_END = '2026-11-09';
 var UPDATE_POPUP_KEY = 'att27_update_popup_' + UPDATE_POPUP_START + '_' + UPDATE_POPUP_END;
 
 function setTheme(theme) {
