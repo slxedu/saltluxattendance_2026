@@ -1181,10 +1181,11 @@ body[data-theme="dark"] .note-input::placeholder { color:#6684a7; }
   .topbar > div:first-child { width:100%; }.topbar-right { width:100%; justify-content:flex-end; gap:6px; }.topbar-right:empty { display:none; }
   .back-btn { padding:8px 10px; font-size:11px; }.month-nav-btn { width:32px; height:32px; }.month-label { min-width:36px; font-size:12px; }.csv-btn { padding:8px 11px; font-size:11px; }
   .calendar-overview-head { flex-wrap:wrap; align-items:flex-start; gap:6px; }.calendar-legend { width:100%; font-size:10px; }
-  .drow { grid-template-columns:40px 28px minmax(0,1fr) minmax(0,1fr); min-height:auto; padding:10px; gap:6px; overflow:visible; }
+  .drow { grid-template-columns:30px 20px repeat(4,minmax(0,1fr)); min-height:auto; padding:8px; gap:4px; overflow:visible; }
   .drow > :nth-child(1), .drow > :nth-child(2) { align-self:center; }
-  .drow > :nth-child(5) { grid-column:1 / span 2; grid-row:2; }.drow > :nth-child(6) { grid-column:3; grid-row:2; }.drow > :nth-child(7) { grid-column:1 / span 3; grid-row:3; }.drow > :nth-child(8) { grid-column:4; grid-row:3; }
-  .drow .twrap { width:100%; padding:0 6px; }.drow .tinput { width:100%; min-width:0; }.drow .dtype, .drow .note-input { min-width:0; }.drow .dhours { align-self:center; }
+  .drow > :nth-child(7) { grid-column:1 / span 5; grid-row:2; }
+  .drow > :nth-child(8) { grid-column:6; grid-row:2; }
+  .drow .twrap { width:100%; padding:0 3px; }.drow .tinput { width:100%; min-width:0; padding:7px 0; font-size:11px; }.drow .twrap .tinput[style] { width:100% !important; }.drow .dtype { min-width:0; padding:7px 2px; font-size:11px; }.drow .note-input { min-width:0; padding:7px 9px; }.drow .dhours { align-self:center; font-size:11px; }
   .whead { align-items:flex-start; flex-direction:column; gap:10px; }.winfo { width:100%; justify-content:flex-end; gap:7px; }
 }
 
