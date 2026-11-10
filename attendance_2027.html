@@ -253,6 +253,13 @@ body{
 }
 .calendar-overview { margin:18px 0; background:linear-gradient(180deg,#fff,#f8fbff); border:1px solid var(--border); border-radius:22px; overflow:hidden; box-shadow:var(--shadow-soft); }
 .calendar-overview-head { display:flex; justify-content:space-between; align-items:flex-end; padding:20px 22px 16px; border-bottom:1px solid var(--border); }
+.calendar-overview-heading { min-width:0; }
+.calendar-overview-actions { display:flex; align-items:center; gap:12px; }
+.calendar-toggle { display:inline-flex; align-items:center; justify-content:center; gap:5px; min-width:64px; height:30px; padding:0 9px; border:1px solid var(--border2); border-radius:6px; background:#fff; color:var(--text2); font:inherit; font-size:11px; font-weight:700; cursor:pointer; }
+.calendar-toggle:hover { border-color:var(--cyan); color:var(--cyan); }
+.calendar-toggle-icon { font-family:var(--mono); font-size:13px; line-height:1; }
+.calendar-overview.is-collapsed .calendar-overview-head { border-bottom:none; }
+.calendar-overview.is-collapsed .calendar-weekdays,.calendar-overview.is-collapsed .calendar-days { display:none; }
 .calendar-overview-title { font-family:var(--display); font-size:17px; font-weight:800; }
 .calendar-overview-sub { font-family:var(--mono); font-size:10px; color:var(--text3); margin-top:4px; }
 .calendar-legend { font-size:11px; color:var(--text2); }
@@ -1202,6 +1209,7 @@ body[data-theme="dark"] .wbar-bg,
 body[data-theme="dark"] .wbar-outer { background:#1b2b44; }
 body[data-theme="dark"] .wfoot { background:#0d1a2d; border-color:#294565; }
 body[data-theme="dark"] .calendar-hours { background:#123458; color:#71c4ff; }
+body[data-theme="dark"] .calendar-toggle { background:#101d31; border-color:#294565; color:#b8c9df; }
 
 .year-switcher { display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:12px 18px; border-bottom:1px solid var(--border); }
 .year-link { display:flex; align-items:center; justify-content:center; min-height:32px; border:1px solid var(--border); border-radius:6px; color:var(--text2); font-size:11px; font-weight:700; text-decoration:none; }
@@ -1220,7 +1228,8 @@ body[data-theme="dark"] .year-switcher { border-color:#203451; }.year-link { bac
   .csv-btn { padding:8px 11px; font-size:11px; }
 
   .calendar-overview-head { flex-wrap:wrap; align-items:flex-start; gap:6px; }
-  .calendar-legend { width:100%; font-size:10px; }
+  .calendar-overview-actions { width:100%; justify-content:space-between; }
+  .calendar-legend { font-size:10px; }
 
   .drow { grid-template-columns:30px 20px repeat(4,minmax(0,1fr)); min-height:auto; padding:8px; gap:4px; overflow:visible; }
   .drow > :nth-child(1), .drow > :nth-child(2) { align-self:center; }
@@ -1336,6 +1345,8 @@ var Y = 2027;
 var M = Math.min(12, Math.max(1, new Date().getMonth() + 1));
 var currentView = 'home';
 var THEME_KEY = 'att27_theme';
+var CALENDAR_STATE_KEY = 'att27_calendar_expanded';
+var calendarExpanded = true;
 var UPDATE_POPUP_START = '2026-11-09';
 var UPDATE_POPUP_END = '2026-11-09';
 var UPDATE_POPUP_KEY = 'att27_update_popup_' + UPDATE_POPUP_START + '_' + UPDATE_POPUP_END;
@@ -1363,6 +1374,7 @@ function initTheme() {
   setTheme(saved);
 }
 initTheme();
+try { calendarExpanded = localStorage.getItem(CALENDAR_STATE_KEY) !== 'collapsed'; } catch(e) {}
 
 function todayKey() {
   var now = new Date();
@@ -1381,6 +1393,12 @@ function closeUpdatePopup() {
   var modal = document.getElementById('updateModal');
   if (modal) modal.classList.remove('show');
   try { localStorage.setItem(UPDATE_POPUP_KEY, 'closed'); } catch(e) {}
+}
+
+function toggleMonthCalendar() {
+  calendarExpanded = !calendarExpanded;
+  try { localStorage.setItem(CALENDAR_STATE_KEY, calendarExpanded ? 'expanded' : 'collapsed'); } catch(e) {}
+  renderMonthCalendar(load(M));
 }
 
 
@@ -1732,10 +1750,12 @@ function render(){
 function renderMonthCalendar(data){
   var host=document.getElementById('calendarOverview');
   if(!host) return;
+  host.className='calendar-overview'+(calendarExpanded?'':' is-collapsed');
   var firstDay=new Date(Y,M-1,1).getDay();
   var totalDays=new Date(Y,M,0).getDate();
   var headers=['일','월','화','수','목','금','토'];
-  var html='<div class="calendar-overview-head"><div><div class="calendar-overview-title">'+Y+'년 '+M+'월 달력</div><div class="calendar-overview-sub">날짜별 근무시간과 비고를 한눈에 확인합니다</div></div><div class="calendar-legend">파란 시간표시: 입력된 근무시간</div></div>';
+  var toggleLabel=calendarExpanded?'접기':'펼치기';
+  var html='<div class="calendar-overview-head"><div class="calendar-overview-heading"><div class="calendar-overview-title">'+Y+'년 '+M+'월 달력</div><div class="calendar-overview-sub">날짜별 근무시간과 비고를 한눈에 확인합니다</div></div><div class="calendar-overview-actions"><div class="calendar-legend">파란 시간표시: 입력된 근무시간</div><button class="calendar-toggle" type="button" onclick="toggleMonthCalendar()" aria-expanded="'+calendarExpanded+'" title="달력 '+toggleLabel+'"><span class="calendar-toggle-icon" aria-hidden="true">'+(calendarExpanded?'^':'v')+'</span><span>'+toggleLabel+'</span></button></div></div>';
   html+='<div class="calendar-weekdays">'+headers.map(function(day){return '<div class="calendar-weekday">'+day+'</div>';}).join('')+'</div><div class="calendar-days">';
   for(var blank=0;blank<firstDay;blank++) html+='<div class="calendar-day empty"></div>';
   for(var d=1;d<=totalDays;d++){
